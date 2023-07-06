@@ -35,5 +35,31 @@ app.use(
 app.use(require("express-fileupload")({ useTempFiles: true }));
 
 // mongoose
-const mongoose = require('mongoose')
-mongoose.connect()
+const mongoose = require("mongoose");
+mongoose
+  .connect(process.env.mongo_link, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then((res) => {
+    if (res) {
+      console.log("Database Connected");
+      app.listen(PORT, () => console.log(`App Running on PORT: ${PORT}`));
+    } else {
+      console.log("Database not connected");
+    }
+  });
+
+//   templating
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+// routes
+
+// general
+app.use("/", require("./routes/index"));
+
+// admin
+app.use("/login", require("./routes/auth/login")); // login route
+app.use("/register", require("./routes/auth/register")); //register route
+app.use("/home", require("./routes/Dashboard/home")); // home route
