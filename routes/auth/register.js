@@ -100,16 +100,16 @@ router.post("/", async (req, res) => {
                 const OTP = new otpMod({
                   uniqueID: saveUser._id,
                   email: saveUser.email,
-                  otp: bcrypt.hash(otp, 10),
+                  otp: bcrypt.hashSync(otp, 10),
                   createdAt: Date.now(),
                   expiresAt: expires,
                 });
                 await OTP.save();
-                sess.email = email;
-                sess.password = password;
+                sess.email = req.body.email;
+                sess.password = req.body.password;
                 const mailOption = {
                   from: `${process.env.adminName} ${process.env.email}`,
-                  to: email,
+                  to: req.body.email,
                   subject: `${fullName} OTP`,
                   html: `
                                                 <html>
@@ -219,7 +219,7 @@ router.post("/otp", async (req, res, next) => {
               msg: "Code has expired. Request for a new one.",
             });
           } else {
-            const match = bcrypt.compare(otp, otpAuth.otp);
+            const match = bcrypt.compareSync(otp, otpAuth.otp);
             if (match) {
               otpMod
                 .findOneAndUpdate({ email: sess.email }, { verified: true })
