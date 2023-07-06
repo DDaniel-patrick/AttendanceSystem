@@ -197,19 +197,19 @@ router.post("/", async (req, res) => {
 
 router.get("/otp", (req, res) => {
   const sess = req.session;
-  console.log('first')
-  console.log(sess)
-  if (sess.email && sess.password) {
-    res.render("auth/otp", { msg: "" });
-  } else {
-    res.redirect("/");
-  }
+  console.log("first");
+  console.log(sess);
+    if (sess.email && sess.password) {
+  res.render("auth/otp", { msg: "" });
+    } else {
+      res.redirect("/");
+    }
 });
 
 router.post("/otp", async (req, res, next) => {
   const sess = req.session;
-  console.log('second')
-  console.log(sess)
+  console.log("second");
+  console.log(sess);
   const otp = req.body.otp.trim();
   if (sess.email && sess.password) {
     try {
@@ -260,6 +260,83 @@ router.post("/otp", async (req, res, next) => {
     }
   } else {
     res.redirect("/");
+  }
+});
+
+router.post("/resendOtp", async (req, res, next) => {
+  const sess = req.session;
+  try {
+    await otpMod.deleteOne({ email: sess.email });
+    const person = await registerMod.findOne({ email: sess.email });
+    const password = sess.password;
+    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+    console.log(otp);
+    const expires = Date.now() + 1 * (60 * 60 * 1000);
+    const OTP = new otpMod({
+      uniqueID: person._id,
+      email: person.email,
+      otp: bcrypt.hashSync(otp, 10),
+      createdAt: Date.now(),
+      expiresAt: expires,
+    });
+    await OTP.save();
+    sess.email = person.email;
+    sess.password = password;
+    const mailOption = {
+      from: `${process.env.adminName} ${process.env.email}`,
+      to: person.email,
+      subject: `${person.name} OTP`,
+      html: `
+                                      <html>
+                                      <head>
+                                        <style>
+                                          body {
+                                            font-family: Arial, sans-serif;
+                                          }
+                                          
+                                          h1 {
+                                            text-align: center;
+                                          }
+                                          
+                                          h3 {
+                                            text-align: center;
+                                            margin-top: 30px;
+                                          }
+                                          
+                                          .otp-code {
+                                            font-size: 36px;
+                                            font-weight: bold;
+                                            text-align: center;
+                                            margin-top: 40px;
+                                            margin-bottom: 50px;
+                                          }
+                                        </style>
+                                      </head>
+                                      <body>
+                                        <h1>OTP Email</h1>
+                                        
+                                        <h3>Hello ${person.name},</h3>
+                                        
+                                        <p style="text-align: center;">Your One-Time Password (OTP) is:</p>
+                                        
+                                        <div class="otp-code">
+                                          ${otp}
+                                        </div>
+                                        
+                                        <p style="text-align: center;">Please use this OTP to complete your verification process. This Code expires in 1 hour.</p>
+                                        
+                                        <p style="text-align: center;">If you didn't request this OTP, please ignore this email.</p>
+                                        
+                                        <p style="text-align: center;">Regards,<br>RealTime Attendance Team</p>
+                                      </body>
+                                      </html>
+                                  `,
+    };
+    await systemMail.sendMail(mailOption);
+    res.redirect("/register/otp");
+  } catch (error) {
+    console.log(error);
+    res.render("auth/otp", { msg: "An Error Occured!!!" });
   }
 });
 
