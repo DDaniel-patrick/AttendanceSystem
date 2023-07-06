@@ -27,7 +27,7 @@ app.use(
     secret: process.env.secret,
     resave: true,
     saveUninitialized: true,
-    cookie: { expires: 43800 },
+    cookie: { expires: 876000000 },
   })
 );
 

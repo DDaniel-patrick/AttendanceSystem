@@ -197,6 +197,8 @@ router.post("/", async (req, res) => {
 
 router.get("/otp", (req, res) => {
   const sess = req.session;
+  console.log('first')
+  console.log(sess)
   if (sess.email && sess.password) {
     res.render("auth/otp", { msg: "" });
   } else {
@@ -206,6 +208,8 @@ router.get("/otp", (req, res) => {
 
 router.post("/otp", async (req, res, next) => {
   const sess = req.session;
+  console.log('second')
+  console.log(sess)
   const otp = req.body.otp.trim();
   if (sess.email && sess.password) {
     try {
@@ -240,7 +244,7 @@ router.post("/otp", async (req, res, next) => {
                   next(error);
                 });
             } else {
-              res.render("auth/otp", { mag: "Incorrect OTP!!!" });
+              res.render("auth/otp", { msg: "Incorrect OTP!!!" });
             }
           }
         } else {
