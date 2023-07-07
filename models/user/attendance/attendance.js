@@ -15,14 +15,11 @@ const attendance = new Schema({
     type: String,
     default: "",
   },
-  // completed: {
-  //   type: Boolean,
-  //   default: false,
-  // },
   closed: {
     type: Boolean,
     default: false,
   },
+  closedTime: Date,
 });
 
 module.exports = mongoose.model("Attendance", attendance);
