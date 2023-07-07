@@ -11,6 +11,7 @@ const attendanceRegistrers = new Schema({
     type: String,
     required: true,
   },
+  time: Date,
   present: {
     type: Boolean,
     default: false,
