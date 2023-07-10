@@ -86,4 +86,43 @@ router.post("/single/:id",async (req, res) => {
     }
 });
 
+
+router.get("/close/:id",async (req, res) => {
+    try {
+        let Auth = req.session._id
+
+        let valueofSwitch=`${req.query.switch}`
+        let ID = req.params.id
+        let checkAuth= (Auth?.length==24)?await register.findOne({_id:Auth, verified:true}):null
+
+        console.log(valueofSwitch);
+        let chkAttendance = checkAuth?ID?.length==24?await attendance.updateOne({_id:ID, adminId:Auth},{closed:valueofSwitch==="yes"?false:true}) :null:null
+
+
+        chkAttendance?res.redirect('/attendance/view/'+ID):res.status(404).render('404')
+    } catch (error) {
+        res.status(500).render('500',{msg:Errordisplay(error).msg})
+    }
+});
+
+router.get("/remove/:id",async (req, res) => {
+    try {
+        let Auth = req.session._id
+
+        let user=`${req.query.user}`
+
+        let ID = req.params.id
+        let checkAuth= (Auth?.length==24)?await register.findOne({_id:Auth, verified:true}):null
+
+        let chkAttendance = checkAuth?ID?.length==24?await attendance.findOne({_id:ID, adminId:Auth}) :null:null
+
+        chkAttendance?user?.length==24?await attendanceRegistrers.deleteOne({attendanceId:ID, _id:user}):null:null
+        
+
+        chkAttendance?res.redirect('/attendance/view/'+ID):res.status(404).render('404')
+    } catch (error) {
+        res.status(500).render('500',{msg:Errordisplay(error).msg})
+    }
+});
+
 module.exports = router;

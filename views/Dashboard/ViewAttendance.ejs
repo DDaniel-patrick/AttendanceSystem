@@ -9,10 +9,10 @@
     <h1><%= Details.name %> Attendance</h1>
     <h3>created:<%= Details.createdAt %> || closed:<%= Details.closed %> ||</h3>
     <a href="<%= website %>/attendance/single/<%= Details._id %>" target="_blank"><%= website %>/attendance/single/<%= Details._id %></a>
-    <a href="/attendance/close/<%= Details._id %>"></a>
+    <a href='/attendance/close/<%= Details._id %>?switch=<%= Details.closed?"yes":"no" %>'>switch</a>
     <center><h3>All Attendee</h3></center>
 
-    <% AllAttendee.forEach(i => { %>
+    <% AllAttendee?.reverse()?.forEach(i => { %>
         <h3><%= i.name %></h3>
         <h4>Joined: <%= i.createdAt %></h4>
         <a href="/attendance/remove/<%= Details._id %>?user=<%= i._id %>">Unckeck User</a>
