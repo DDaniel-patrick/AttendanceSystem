@@ -8,7 +8,9 @@
 </head>
 
 <body>
-    <p style="color: red;"><%= msg %></p>
+    <p style="color: red;">
+        <%= msg %>
+    </p>
     <h1>Signup</h1>
     <form action="/register" method="post" enctype="multipart/form-data">
         <label for="name">Fullname: </label>
@@ -42,6 +44,7 @@
         <br>
         <input type="submit" value="Signup">
     </form>
+    <p>Already have an account? <a href="/login" class="dnthave"> Login</a></p>
 </body>
 
 </html>
