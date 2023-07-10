@@ -63,3 +63,4 @@ app.use("/", require("./routes/index"));
 app.use("/login", require("./routes/auth/login")); // login route
 app.use("/register", require("./routes/auth/register")); //register route
 app.use("/home", require("./routes/Dashboard/home")); // home route
+app.use("/profile", require("./routes/Dashboard/profile")); // profile route

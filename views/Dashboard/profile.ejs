@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div
+        style="display: flex; width: 100%; height: auto; flex-direction: column; justify-content: center; align-items: center;">
+        <a href="<%= you.picture %>" target="_blank" rel="noopener noreferrer"><img src="<%= you.picture %>"
+                alt="<%= you.name %>" style="width: 300px; height: 300px; border-radius: 50%;"></a>
+        <p style="font-weight: bolder; font-size: 30px;">
+            <%= you.name %>
+        </p>
+        <div
+            style="display: flex; flex-direction: row; width: auto; justify-content: space-between; padding-left: 5px; padding-right: 5px;">
+            <p style="margin-right: 20px;"><b>Phone:</b>
+                <a href="tel:<%= you.phone %>" style="text-decoration: none; color: black;">
+                    <%= you.phone %>
+                </a>
+            </p>
+            <p style="margin-left: 20px;"><b>Email:</b>
+                <a href="mailto:<%= you.email %>" style="text-decoration: none; color: black;">
+                    <%= you.email %>
+                </a>
+            </p>
+        </div>
+        <p><b>Age:</b>
+            <%= you.age %>
+        </p>
+        <p><b>Gender:</b>
+            <%= you.gender %>
+        </p>
+        <div
+            style="display: flex; flex-direction: row; width: auto; justify-content: space-between; padding-left: 5px; padding-right: 5px;">
+            <button style="margin-right: 10px;"><a href="/profile/edit"
+                    style="text-decoration: none; color: black;">Edit Profile</a></button>
+            <button style="margin-left: 10px;"><a href="/profile/delete"
+                    style="text-decoration: none; color: black;">Delete Account</a></button>
+        </div>
+    </div>
+</body>
+
+</html>
