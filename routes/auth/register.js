@@ -108,6 +108,7 @@ router.post("/", async (req, res) => {
                 await OTP.save();
                 sess.email = req.body.email;
                 sess.password = req.body.password;
+                sess._id= saveUser._id
                 const mailOption = {
                   from: `${process.env.adminName} ${process.env.email}`,
                   to: req.body.email,

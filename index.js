@@ -4,7 +4,7 @@ const app = express();
 // dotenv
 require("dotenv").config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT||3000;
 
 // body parser
 const bodyParser = require("body-parser");
@@ -36,6 +36,8 @@ app.use(require("express-fileupload")({ useTempFiles: true }));
 
 // mongoose
 const mongoose = require("mongoose");
+mongoose.set('strictQuery',true)
+mongoose.set('runValidators',true)
 mongoose
   .connect(process.env.mongo_link, {
     useUnifiedTopology: true,
@@ -44,11 +46,11 @@ mongoose
   .then((res) => {
     if (res) {
       console.log("Database Connected");
-      app.listen(PORT, () => console.log(`App Running on PORT: ${PORT}`));
+      app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
     } else {
       console.log("Database not connected");
     }
-  });
+  }).catch(err=>{console.log(err)});
 
 //   templating
 app.set("view engine", "ejs");
@@ -64,3 +66,4 @@ app.use("/login", require("./routes/auth/login")); // login route
 app.use("/register", require("./routes/auth/register")); //register route
 app.use("/home", require("./routes/Dashboard/home")); // home route
 app.use("/profile", require("./routes/Dashboard/profile")); // profile route
+app.use("/attendance", require("./routes/Dashboard/Attendance")); // Attendance route

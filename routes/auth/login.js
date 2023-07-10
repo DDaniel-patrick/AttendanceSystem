@@ -23,7 +23,8 @@ router.post("/", async (req, res) => {
           if (check.verified == true) {
             (sess.email = loginEmail),
               (sess.password = loginPassword),
-              (sess.identifier = "user");
+              (sess.identifier = "user"),
+              (sess._id= check._id)
             console.log(sess);
             res.redirect("/home");
           } else {
