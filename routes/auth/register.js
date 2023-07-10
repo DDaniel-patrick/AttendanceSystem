@@ -85,6 +85,7 @@ router.post("/", async (req, res) => {
                   name: fullName,
                   phone: phoneNumber,
                   age: age,
+                  dob: dob,
                   gender: gender,
                   email: email,
                   picture: upload.secure_url,
