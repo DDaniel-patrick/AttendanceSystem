@@ -12,6 +12,11 @@
     <button><a href="/profile/view">View Profile</a></button>
     <button><a href="/attendance/add">CreateAttendance</a></button>
 
+    <% allAttendance?.reverse()?.forEach(i => { %>
+        <h3><%= i.name %></h3>
+        <h4>Opened: <%= i.createdAt %>, closed:<%= i.closed==true?i.updatedAt:"Open" %></h4>
+        <a href="/attendance/view/<%= i._id %>">View Attendances</a>
+    <% }) %>
 </body>
 
 </html>
