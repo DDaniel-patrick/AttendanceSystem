@@ -17,7 +17,12 @@ const attendanceRegistrers = new Schema({
   },
   present: {
     type: Boolean,
-    default: false,
+    default: true,
+  },
+  Reason: {
+    type: String,
+    minlength:[4,"Reason too short"],
+    maxlength:[54,"Reason too long"],
   },
 },{timestamps:true});
 

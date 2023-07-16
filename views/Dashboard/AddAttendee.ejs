@@ -8,7 +8,9 @@
 <body>
     <p><%= msg %></p>
     <form action="/attendance/single/<%= Details._id %>" method="post">
-        <input type="text" name="name" id="" placeholder="Attendance Name" required minlength="3" maxlength="30">
+        <input type="text" name="name" id="" placeholder="Attendance Name" required minlength="3" required maxlength="30">
+        <input type="radio" name="absent" value="true"><label for="Absent">Absent</label>
+        <input type="text" name="reasonAbsent" placeholder="Reason absent" required id="">
         <button type="submit">Add</button>
     </form>
 </body>

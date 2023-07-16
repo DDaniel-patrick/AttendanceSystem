@@ -18,5 +18,13 @@
         <a href="/attendance/remove/<%= Details._id %>?user=<%= i._id %>">Unckeck User</a>
     <% }) %>
 
+    <center><h3>All Absent Attendee</h3></center>
+
+    <% AllAbsenseAttendee?.reverse()?.forEach(i => { %>
+        <h3><%= i.name %></h3>
+        <h4>Reason: <%= i.Reason %></h4>
+        <h4>Joined: <%= i.createdAt %></h4>
+    <% }) %>
+
 </body>
 </html>

@@ -48,9 +48,11 @@ router.get("/view/:id",async (req, res) => {
 
         let chkAttendance = checkAuth?ID?.length==24?await attendance.findOne({_id:ID, adminId:Auth}) :null:null
 
-        let AllAttendee = chkAttendance?await attendanceRegistrers.find({attendanceId:ID}):null
+        let AllAttendee = chkAttendance?await attendanceRegistrers.find({attendanceId:ID, present:true}):null
 
-        chkAttendance?res.render("Dashboard/ViewAttendance",{Details:chkAttendance,AllAttendee,website:process.env.website}):res.status(404).render('404')
+        let AllAbsenseAttendee = chkAttendance?await attendanceRegistrers.find({attendanceId:ID, present:false}):null
+
+        chkAttendance?res.render("Dashboard/ViewAttendance",{Details:chkAttendance,AllAttendee, website:process.env.website,AllAbsenseAttendee }):res.status(404).render('404')
     } catch (error) {
         res.status(500).render('500',{msg:Errordisplay(error).msg})
     }
@@ -75,10 +77,10 @@ router.post("/single/:id",async (req, res) => {
         let ID = req.params.id
 
         let collect= req.body
-
+        console.log(collect);
         let chkAttendance = ID?.length==24?await attendance.findOne({_id:ID, closed:false}) :null
         
-        chkAttendance?await attendanceRegistrers.create({name:collect.name, attendanceId:ID}):null
+        chkAttendance?await attendanceRegistrers.create({name:collect?.name, attendanceId:ID, present:collect?.absent=="true"?false:true, Reason:collect?.reasonAbsent}):null
 
         chkAttendance?res.render('success',{msg:"Thanks for Registering"}):res.status(404).render('404')
     } catch (error) {
@@ -116,7 +118,7 @@ router.get("/remove/:id",async (req, res) => {
 
         let chkAttendance = checkAuth?ID?.length==24?await attendance.findOne({_id:ID, adminId:Auth}) :null:null
 
-        chkAttendance?user?.length==24?await attendanceRegistrers.deleteOne({attendanceId:ID, _id:user}):null:null
+        chkAttendance?user?.length==24?await attendanceRegistrers.deleteOne({attendanceId:ID, _id:user, present:true}):null:null
         
 
         chkAttendance?res.redirect('/attendance/view/'+ID):res.status(404).render('404')
