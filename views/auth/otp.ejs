@@ -25,6 +25,33 @@
       href="/assets/css/screenc530.css?v=a2006a64c6"
     />
     <style>
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #resendButton {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            padding: 10px;
+            width: 120px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #resendButton[disabled] {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+    </style>
+    <style>
       :root {
         --font-family-one: "Inter", sans-serif;
         --font-weight-one-light: 300;
@@ -254,6 +281,7 @@
           </div>
         </div>
         <div class="custom-content">
+            <div>
           <form method="post" action="/register/otp">
             <h1 class="custom-title">Verification</h1>
             <p><%= msg %></p>
@@ -267,11 +295,12 @@
               ><span>Didn't receive a mail? Request one in..</span>
               <div class="countdown" id="countdown"></div></small
             >
-            <form action="/register/resendOtp" method="post">
-                <input type="submit" value="Resend OTP" id="resendButton" disabled>
-            </form>
+            
           </form>
-          
+          <form action="/register/resendOtp" method="post">
+            <input type="submit" value="Resend OTP" id="resendButton" disabled>
+        </form>
+    </div>  
         </div>
       </div>
       <div
@@ -322,101 +351,3 @@
 
 </html>
 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Page</title>
-    <style>
-        .countdown {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        #resendButton {
-            display: block;
-            margin: 0 auto;
-            text-align: center;
-            padding: 10px;
-            width: 120px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #resendButton[disabled] {
-            background-color: #aaa;
-            cursor: not-allowed;
-        }
-    </style>
-</head>
-
-<body>
-    <p style="color: red;">
-        <%= msg %>
-    </p>
-    <h1 style="margin-left: 45%;">Enter OTP</h1>
-    <form action="/register/otp" method="post" enctype="multipart/form-data" style="margin-left: 45%;">
-        <label for="otp">OTP: </label>
-        <input type="text" name="otp" id="otp" required maxlength="4">
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    <br>
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-        <p>Didn't receive a mail? Request one in..</p>
-        <div class="countdown" id="countdown"></div>
-    </div>
-    <form action="/register/resendOtp" method="post">
-        <input type="submit" value="Resend OTP" id="resendButton" disabled>
-    </form>
-
-    <script>
-        var countdownDate;
-        var countdownTimer;
-
-        function startCountdown() {
-            countdownDate = new Date();
-            countdownDate.setMinutes(countdownDate.getMinutes() + 3); // Add 1 minute to the current time
-
-            countdownTimer = setInterval(function () {
-                var now = new Date().getTime();
-                var timeRemaining = countdownDate - now;
-
-                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-                document.getElementById("countdown").innerHTML = minutes + "m " + seconds + "s";
-
-                if (timeRemaining < 0) {
-                    clearInterval(countdownTimer);
-                    document.getElementById("countdown").innerHTML = "";
-                    document.getElementById("resendButton").disabled = false;
-                }
-            }, 1000);
-        }
-
-        function resendOTP() {
-            // Simulating OTP resend functionality
-            // Replace this with your actual resend OTP logic
-            document.getElementById("countdown").innerHTML = "";
-            document.getElementById("resendButton").disabled = true;
-            startCountdown();
-        }
-
-        // document.getElementById("resendButton").addEventListener("click", resendOTP);
-        startCountdown();
-    </script>
-</body>
-
-</html>
