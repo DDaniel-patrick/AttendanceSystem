@@ -14,6 +14,12 @@ const attendance = new Schema({
     type: String,
     required: [true, "admin required"],
   },
+  Bio: {
+    type: String,
+    required: [true, "About Attendance is required"],
+    minlength:[6, "About attendance is too short"],
+  
+  },
   closed: {
     type: Boolean,
     default: false,

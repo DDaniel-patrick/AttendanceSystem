@@ -1,22 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
+  
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Come Work</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap"
+    />
 
-<body>
-    <h1>Welcome Home!!!</h1>
-    <button><a href="/profile/view">View Profile</a></button>
-    <button><a href="/attendance/add">CreateAttendance</a></button>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/screenc530.css?v=a2006a64c6"
+    />
+    <style>
+      :root {
+        --font-family-one: "Inter", sans-serif;
+        --font-weight-one-light: 300;
+        --font-weight-one-bold: 700;
 
-    <% allAttendance?.reverse()?.forEach(i => { %>
-        <h3><%= i.name %></h3>
-        <h4>Opened: <%= i.createdAt %>, closed:<%= i.closed==true?i.updatedAt:"Open" %></h4>
-        <a href="/attendance/view/<%= i._id %>">View Attendances</a>
-    <% }) %>
-</body>
+        --font-family-two: "Inter", sans-serif;
+        --font-weight-two-bold: 700;
 
+        --font-family-three: "Inter", sans-serif;
+        --font-weight-three-regular: 400;
+        --font-weight-three-medium: 500;
+        --font-weight-three-bold: 700;
+
+        --letter-spacing: -0.01em;
+      }
+    </style>
+
+    <script>
+      function getContrast(t) {
+        "use strict";
+        return (
+          "#" === t.slice(0, 1) && (t = t.slice(1)),
+          3 === t.length &&
+            (t = t
+              .split("")
+              .map(function (t) {
+                return t + t;
+              })
+              .join("")),
+          (299 * parseInt(t.substr(0, 2), 16) +
+            587 * parseInt(t.substr(2, 2), 16) +
+            114 * parseInt(t.substr(4, 2), 16)) /
+            1000 >=
+          128
+            ? "no-white-text"
+            : "is-white-text"
+        );
+      }
+    </script>
+ 
+    <link rel="canonical" href="/" />
+    
+    <style id="gh-members-styles">
+      .gh-post-upgrade-cta-content,
+      .gh-post-upgrade-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        text-align: center;
+        width: 100%;
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      .gh-post-upgrade-cta-content {
+        border-radius: 8px;
+        padding: 40px 4vw;
+      }
+
+      .gh-post-upgrade-cta h2 {
+        color: #ffffff;
+        font-size: 28px;
+        letter-spacing: -0.2px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .gh-post-upgrade-cta p {
+        margin: 20px 0 0;
+        padding: 0;
+      }
+
+      .gh-post-upgrade-cta small {
+        font-size: 16px;
+        letter-spacing: -0.2px;
+      }
+
+      .gh-post-upgrade-cta a {
+        color: #ffffff;
+        cursor: pointer;
+        font-weight: 500;
+        box-shadow: none;
+        text-decoration: underline;
+      }
+
+      .gh-post-upgrade-cta a:hover {
+        color: #ffffff;
+        opacity: 0.8;
+        box-shadow: none;
+        text-decoration: underline;
+      }
+
+      .gh-post-upgrade-cta a.gh-btn {
+        display: block;
+        background: #ffffff;
+        text-decoration: none;
+        margin: 28px 0 0;
+        padding: 8px 18px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .gh-post-upgrade-cta a.gh-btn:hover {
+        opacity: 0.92;
+      }
+    </style>
+    <script async src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+      @media (min-width: 1481px) {
+        .hero-title {
+          max-width: 1070px;
+        }
+      }
+    </style>
+    <style>
+      .item.is-top.is-first .item-image {
+        aspect-ratio: 4/3.05;
+      }
+      .subscribe-form {
+        padding: 28px 34px 32px;
+      }
+      .subscribe-title {
+        margin: 0 0 2.4vh;
+      }
+      @media (max-width: 1480px) {
+        .subscribe-form {
+          padding: 30px;
+        }
+      }
+      @media (max-width: 1280px) {
+        .subscribe-form {
+          padding: 26px 2vw;
+        }
+      }
+      @media (max-width: 1024px) {
+        .subscribe-form {
+          padding: 20px;
+        }
+      }
+      .post-sidebar .subscribe-form {
+        padding: 22px 25px 25px;
+      }
+      .footer-section .subscribe-form {
+        padding: 20px 26px 28px;
+      }
+    </style>
+   
+    <style>
+      body.is-scroll-banner .is-banner {
+        bottom: 30px;
+      }
+      .is-banner {
+        font-size: 24px;
+        position: fixed;
+        z-index: 9999;
+        right: 2%;
+        bottom: -100px;
+        display: inline-block;
+        padding: 2px 10px;
+        transition-timing-function: ease;
+        transition-duration: 0.5s;
+        transition-property: bottom, transform;
+        color: #171822;
+        border-radius: 100px;
+        background-color: #97fe65;
+      }
+      .is-banner,
+      .is-banner:hover {
+        color: #171822;
+      }
+      .is-banner:hover {
+        transform: translateY(-3px);
+      }
+      @media (max-width: 1024px) {
+        .is-banner {
+          display: none !important;
+        }
+      }
+    </style>
+    <style>
+      :root {
+        --ghost-accent-color: #f35e63;
+      }
+    </style>
+  </head>
+  <body class="home-template">
+    <script>
+      !(function () {
+        "use strict";
+        const t = document.body,
+          o = getComputedStyle(t)
+            .getPropertyValue("--ghost-accent-color")
+            .trim();
+        o && t.classList.add(getContrast(o));
+      })();
+    </script>
+    <div class="global-wrap">
+      <div
+        class="global-cover"
+        style="
+          background-image: url(/content/images/size/w1600/2022/10/charlesdeluvio-cZr2sgaxy3Q-unsplash.jpg);
+        "
+      ></div>
+
+      <div class="global-content">
+        
+        <main class="global-main">
+          <div class="hero-section">
+            <div class="hero-wrap global-padding">
+              <h1 class="hero-title global-title">
+                <span>Welcome to Come Work Home.</span>
+              </h1>
+              
+            </div>
+          </div>
+          <div class="widget-section global-padding">
+            <small class="global-subtitle">Where to go?</small>
+            <div class="widget-wrap is-tags">
+              <a
+                href="/profile/view"
+                class="item global-image-orientation global-radius"
+              >
+                <h2 class="item-title">Profile</h2>
+                <div class="widget-image global-image">
+                  <img
+                    src="/content/images/size/w300/2022/10/photo-1642557581411-1be3a36d4786.jpg"
+                    alt=""
+                  />
+                </div>
+              </a>
+              <a
+                href="/attendance/add"
+                class="item global-image-orientation global-radius"
+              >
+                <h2 class="item-title">Add Attendance</h2>
+                <div class="widget-image global-image">
+                  <img
+                    src="/content/images/size/w300/2022/10/photo-1529307474719-3d0a417aaf8a.jpg"
+                    alt=""
+                  />
+                </div>
+              </a>
+              <a
+                href="/logout"
+                class="item global-image-orientation global-radius"
+              >
+                <h2 class="item-title">Logout</h2>
+                <div class="widget-image global-image">
+                  <img
+                    src="/content/images/size/w300/2022/10/photo-1434494878577-86c23bcb06b9.jpg"
+                    alt=""
+                  />
+                </div>
+              </a>
+             
+            </div>
+          </div>
+          <div class="loop-section global-padding">
+            
+            <small class="loop-subtitle global-subtitle">Previous posts</small>
+            <div class="loop-wrap">
+                <% allAttendance?.reverse()?.forEach(i => { %>
+                    <article class="item">
+                        <div
+                          class="item-image global-image global-image-orientation global-radius"
+                        >
+                          <a
+                            href="/attendance/view/<%= i._id %>"
+                            class="global-link"
+                            aria-label="We are stronger as a group than an individual"
+                          ></a>
+                          <img
+                            srcset="
+                              /content/images/size/w300/2022/10/rayul-_M6gy9oHgII-unsplash.jpg 300w,
+                              /content/images/size/w600/2022/10/rayul-_M6gy9oHgII-unsplash.jpg 600w
+                            "
+                            sizes="(max-width:480px) 300px, 600px"
+                            src="/content/images/size/w600/2022/10/rayul-_M6gy9oHgII-unsplash.jpg"
+                            loading="lazy"
+                            alt=""
+                          />
+                        </div>
+                        <div class="item-content">
+                          
+                          <h2 class="item-title">
+                            <a
+                              href="/attendance/view/<%= i._id %>"
+                              ><%= i.name %></a
+                            >
+                          </h2>
+                          <p class="item-excerpt global-excerpt">
+                            <%= i?.Bio %>
+                          </p>
+                          <div class="global-meta">
+                            <div class="global-meta-content">
+                              Created:
+                              <a href="#"><%= `${(i?.createdAt)}`?.split('G')[0] %></a> <br> Closed:
+                              <a href="#"><%= i.closed==true?`${i.updatedAt}`.split("G")[0]:"Open"
+                                %></a>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    <% }) %>
+              
+              
+            </div>
+          </div>
+          
+
+          
+        </main>
+       
+      </div>
+    </div>
+   
+    
+    <script src="/assets/js/globalc530.js?v=a2006a64c6"></script>
+    <script src="/assets/js/indexc530.js?v=a2006a64c6"></script>
+    
+
+    
+   
+   
+  </body>
 </html>

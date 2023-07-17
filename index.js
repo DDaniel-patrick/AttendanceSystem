@@ -67,3 +67,4 @@ app.use("/register", require("./routes/auth/register")); //register route
 app.use("/home", require("./routes/Dashboard/home")); // home route
 app.use("/profile", require("./routes/Dashboard/profile")); // profile route
 app.use("/attendance", require("./routes/Dashboard/Attendance")); // Attendance route
+app.get('/logout',(req,res)=>{req.session.destroy();res.redirect('/')})
