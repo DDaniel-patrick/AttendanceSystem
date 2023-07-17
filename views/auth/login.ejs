@@ -1,27 +1,495 @@
 <!DOCTYPE html>
+<html lang="en" class="dark-mode">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>COme Work Login</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/screenc530.css?v=a2006a64c6"
+    />
+    <style>
+      :root {
+        --font-family-one: "Inter", sans-serif;
+        --font-weight-one-light: 300;
+        --font-weight-one-bold: 700;
+
+        --font-family-two: "Inter", sans-serif;
+        --font-weight-two-bold: 700;
+
+        --font-family-three: "Inter", sans-serif;
+        --font-weight-three-regular: 400;
+        --font-weight-three-medium: 500;
+        --font-weight-three-bold: 700;
+
+        --letter-spacing: -0.01em;
+      }
+    </style>
+
+    <script>
+      
+      function getContrast(t) {
+        "use strict";
+        return (
+          "#" === t.slice(0, 1) && (t = t.slice(1)),
+          3 === t.length &&
+            (t = t
+              .split("")
+              .map(function (t) {
+                return t + t;
+              })
+              .join("")),
+          (299 * parseInt(t.substr(0, 2), 16) +
+            587 * parseInt(t.substr(2, 2), 16) +
+            114 * parseInt(t.substr(4, 2), 16)) /
+            1000 >=
+          128
+            ? "no-white-text"
+            : "is-white-text"
+        );
+      }
+    </script>
+    <link rel="canonical" href="/" />
+
+    
+
+    
+
+  
+    <style id="gh-members-styles">
+      .gh-post-upgrade-cta-content,
+      .gh-post-upgrade-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        text-align: center;
+        width: 100%;
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      .gh-post-upgrade-cta-content {
+        border-radius: 8px;
+        padding: 40px 4vw;
+      }
+
+      .gh-post-upgrade-cta h2 {
+        color: #ffffff;
+        font-size: 28px;
+        letter-spacing: -0.2px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .gh-post-upgrade-cta p {
+        margin: 20px 0 0;
+        padding: 0;
+      }
+
+      .gh-post-upgrade-cta small {
+        font-size: 16px;
+        letter-spacing: -0.2px;
+      }
+
+      .gh-post-upgrade-cta a {
+        color: #ffffff;
+        cursor: pointer;
+        font-weight: 500;
+        box-shadow: none;
+        text-decoration: underline;
+      }
+
+      .gh-post-upgrade-cta a:hover {
+        color: #ffffff;
+        opacity: 0.8;
+        box-shadow: none;
+        text-decoration: underline;
+      }
+
+      .gh-post-upgrade-cta a.gh-btn {
+        display: block;
+        background: #ffffff;
+        text-decoration: none;
+        margin: 28px 0 0;
+        padding: 8px 18px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .gh-post-upgrade-cta a.gh-btn:hover {
+        opacity: 0.92;
+      }
+    </style>
+    <script async src="https://js.stripe.com/v3/"></script>
+    
+    <script defer src="/public/cards.minc530.js?v=a2006a64c6"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/public/cards.minc530.css?v=a2006a64c6"
+    />
+  
+    <script
+      defer
+      src="/public/member-attribution.minc530.js?v=a2006a64c6"
+    ></script>
+    <style>
+      @media (min-width: 1481px) {
+        .hero-title {
+          max-width: 1070px;
+        }
+      }
+    </style>
+    <style>
+      .item.is-top.is-first .item-image {
+        aspect-ratio: 4/3.05;
+      }
+      .subscribe-form {
+        padding: 28px 34px 32px;
+      }
+      .subscribe-title {
+        margin: 0 0 2.4vh;
+      }
+      @media (max-width: 1480px) {
+        .subscribe-form {
+          padding: 30px;
+        }
+      }
+      @media (max-width: 1280px) {
+        .subscribe-form {
+          padding: 26px 2vw;
+        }
+      }
+      @media (max-width: 1024px) {
+        .subscribe-form {
+          padding: 20px;
+        }
+      }
+      .post-sidebar .subscribe-form {
+        padding: 22px 25px 25px;
+      }
+      .footer-section .subscribe-form {
+        padding: 20px 26px 28px;
+      }
+    </style>
+    
+    <style>
+      body.is-scroll-banner .is-banner {
+        bottom: 30px;
+      }
+      .is-banner {
+        font-size: 24px;
+        position: fixed;
+        z-index: 9999;
+        right: 2%;
+        bottom: -100px;
+        display: inline-block;
+        padding: 2px 10px;
+        transition-timing-function: ease;
+        transition-duration: 0.5s;
+        transition-property: bottom, transform;
+        color: #171822;
+        border-radius: 100px;
+        background-color: #97fe65;
+      }
+      .is-banner,
+      .is-banner:hover {
+        color: #171822;
+      }
+      .is-banner:hover {
+        transform: translateY(-3px);
+      }
+      @media (max-width: 1024px) {
+        .is-banner {
+          display: none !important;
+        }
+      }
+    </style>
+    <style>
+      :root {
+        --ghost-accent-color: #f35e63;
+      }
+    </style>
+  </head>
+  <body class="page-template page-signup custom-page">
+    <script>
+      !(function () {
+        "use strict";
+        const t = document.body,
+          o = getComputedStyle(t)
+            .getPropertyValue("--ghost-accent-color")
+            .trim();
+        o && t.classList.add(getContrast(o));
+      })();
+    </script>
+    <div class="custom-wrap">
+      <div class="custom-container">
+        <div class="custom-logo-wrap">
+          <div class="custom-logo global-logo is-header">
+            <a sh href="/" class="is-logo"
+              ><img
+                src="/content/images/2022/10/reiro_white.png"
+                alt="Come Work home"
+               
+            /></a>
+          </div>
+        </div>
+        <div class="custom-content">
+          <form data-members-form="signup" data-members-autoredirect="false">
+            <h1 class="custom-title">Create Account</h1>
+            <input
+              data-members-name
+              type="text"
+              placeholder="Your name"
+              aria-label="Your name"
+              required
+            />
+            <input
+              data-members-email
+              type="email"
+              placeholder="Your email address"
+              aria-label="Your email address"
+              required
+            />
+            <button class="global-button" type="submit">Continue</button>
+            <div>
+              <small class="alert-loading global-alert"
+                >Processing your application</small
+              >
+              <small class="alert-error global-alert"
+                >There was an error sending the email</small
+              >
+            </div>
+            <small class="global-question"
+              ><span>Already have an account?</span>
+              <a href="/signin//">Sign in</a></small
+            >
+          </form>
+          <div class="alert-success">
+            <h2 class="global-title">Great!</h2>
+            <p>
+              Please check your inbox and click the link to confirm your signup.
+            </p>
+            <a href="//" class="global-button">Back to homepage</a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="custom-image global-bg-image"
+        style="
+          background-image: url(/content/images/2022/10/photo-1634118931958-f1cf1f9c6156.jpg);
+        "
+      ></div>
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+        var e = Array.prototype.slice
+          .call(window.getComputedStyle(document.documentElement, ""))
+          .join("")
+          .match(/-(moz|webkit|ms)-/)[1];
+        if ((console.log(e), "moz" === e)) {
+          const e = document.querySelector("input[data-members-email]");
+          if (e) {
+            e.addEventListener(
+              "keyup",
+              (function (e, t) {
+                let s;
+                return (...o) => {
+                  clearTimeout(s),
+                    (s = setTimeout(function () {
+                      e.apply(this, o);
+                    }, t));
+                };
+              })(() => {
+                const t = e.value;
+                function s(e) {
+                  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+                }
+                if ((console.log(s(t)), !0 === s(t))) {
+                  const e = document.querySelector("form button");
+                  (e.disabled = !0),
+                    new Promise((e, s) => {
+                      console.log(t);
+                      const o = JSON.stringify({ email: t }),
+                        n = new XMLHttpRequest();
+                      n.addEventListener("readystatechange", function () {
+                        this.readyState === this.DONE &&
+                          (console.log(this.responseText),
+                          '{"status":"valid"}' === this.responseText
+                            ? e()
+                            : '{"status":"role"}' === this.responseText
+                            ? e()
+                            : s());
+                      }),
+                        n.open(
+                          "POST//",
+                          "https://app.mailercheck.com/api/v1/check/single"
+                        ),
+                        n.setRequestHeader("content-type", "application/json"),
+                        n.setRequestHeader(
+                          "authorization",
+                          "Bearer adeea5d5-f96f-4eb9-8a29-fb6972d7189f"
+                        ),
+                        n.send(o);
+                    })
+                      .then((t) => {
+                        e.disabled = !1;
+                      })
+                      .catch((e) => {});
+                }
+              }, 800)
+            );
+          }
+        } else {
+          const e = document.querySelector("form[data-members-form]");
+          if (e) {
+            const s = document.querySelector("form[data-members-form] button");
+            var t = s.cloneNode(!0);
+            t.classList.add("button-clone"),
+              s.before(t),
+              s.setAttribute("style", "display:none"),
+              (s.disabled = !0),
+              t.addEventListener("click", function () {
+                const o = document.querySelector("input[data-members-name]"),
+                  n = document.querySelector("input[data-members-email]");
+                if (o)
+                  if ("" == o.value || "" == n.value);
+                  else {
+                    const e = n.value;
+                    function a(e) {
+                      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+                    }
+                    if ((console.log(a(e)), !0 === a(e))) {
+                      t.classList.add("button-valid");
+                      var i = document.querySelector(".button-valid");
+                    }
+                  }
+                if (!o)
+                  if ("" == n.value);
+                  else {
+                    const e = n.value;
+                    function a(e) {
+                      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+                    }
+                    if ((console.log(a(e)), !0 === a(e))) {
+                      t.classList.add("button-valid");
+                      i = document.querySelector(".button-valid");
+                    }
+                  }
+                if (i) {
+                  e.classList.add("loading"),
+                    e.classList.remove("error"),
+                    ((t.disabled = !0),
+                    new Promise((s, o) => {
+                      const a = n.value;
+                      console.log("Email validation:"), console.log(a);
+                      const i = JSON.stringify({ email: a }),
+                        l = new XMLHttpRequest();
+                      l.addEventListener("readystatechange", function () {
+                        if (this.readyState === this.DONE)
+                          if (
+                            (console.log(this.responseText),
+                            '{"status":"valid"}' === this.responseText ||
+                              '{"status":"role"}' === this.responseText)
+                          ) {
+                            const e = console.log("Email is valid :)");
+                            s(e);
+                          } else {
+                            e.classList.remove("loading"),
+                              e.classList.add("error"),
+                              (t.disabled = !1);
+                            const s = console.log("Email is not valid!");
+                            o(s);
+                          }
+                      }),
+                        l.open(
+                          "POST//",
+                          "https://app.mailercheck.com/api/v1/check/single"
+                        ),
+                        l.setRequestHeader("content-type", "application/json"),
+                        l.setRequestHeader(
+                          "authorization",
+                          "Bearer adeea5d5-f96f-4eb9-8a29-fb6972d7189f"
+                        ),
+                        l.send(i);
+                    })).then((e) => {
+                      (s.disabled = !1),
+                        s.click(),
+                        console.log("The form was sent");
+                    });
+                }
+              });
+          }
+        }
+      });
+    </script>
+    <script>
+      !(function () {
+        window.onscroll = (event) => {
+          let a = document.createElement("a");
+          (a.innerHTML = "See all Themes \u2192"),
+            a.setAttribute("class", "is-banner"),
+            (a.href = "https://fueko.net/themes/"),
+            (a.target = "_blank"),
+            (a.rel = "noopener"),
+            document.body.appendChild(a),
+            (window.onscroll = function (a) {
+              (n = document.body),
+                window.innerHeight + window.scrollY >=
+                document.body.offsetHeight
+                  ? n.classList.add("is-scroll-banner")
+                  : n.classList.remove("is-scroll-banner");
+            });
+        };
+      })();
+    </script>
+  </body>
+
+  <!-- Mirrored from reiro-dark.fueko.net/signup/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Jul 2023 13:15:34 GMT -->
+</html>
+
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-</head>
+  </head>
 
-<body>
-    <p style="color: red;">
-        <%= msg %>
-    </p>
+  <body>
+    <p style="color: red"><%= msg %></p>
     <h1>Login</h1>
     <form method="post" action="/login">
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email" required>
-        <br>
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" required>
-        <br>
-        <input type="submit" value="Login">
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="email" required />
+      <br />
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password" required />
+      <br />
+      <input type="submit" value="Login" />
     </form>
-    <p>Don’t have an account? <a href="/register" class="dnthave"> Register</a></p>
-</body>
-
+    <p>
+      Don’t have an account? <a href="/register" class="dnthave"> Register</a>
+    </p>
+  </body>
 </html>
