@@ -23,6 +23,7 @@ const attendanceRegistrers = new Schema({
     type: String,
     minlength:[4,"Reason too short"],
     maxlength:[54,"Reason too long"],
+    default:"none"
   },
 },{timestamps:true});
 
