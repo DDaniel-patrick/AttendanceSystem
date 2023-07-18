@@ -21,7 +21,6 @@ const attendanceRegistrers = new Schema({
   },
   Reason: {
     type: String,
-    minlength:[4,"Reason too short"],
     maxlength:[54,"Reason too long"],
     default:"no text was filled"
   },
