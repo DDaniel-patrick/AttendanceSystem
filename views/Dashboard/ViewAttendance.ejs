@@ -135,6 +135,19 @@
         opacity: 0.92;
       }
     </style>
+    <script>
+      function copyClip() {
+// Get the text field
+var copyText = '<%= website %>/attendance/single/<%= Details._id %>';
+
+
+// Copy the text inside the text field
+navigator.clipboard.writeText(copyText);
+
+// Alert the copied text
+alert("Copied the text: " + copyText);
+}
+    </script>
     <script async src="https://js.stripe.com/v3/"></script>
     
     <style>
@@ -251,7 +264,19 @@
           <!-- nav  -->
           <div class="widget-section global-padding">
             <small class="global-subtitle">Where to go?</small>
-            <div class="widget-wrap is-tags">
+            <div style="overflow-x: scroll;" class="widget-wrap is-tags">
+              <div
+              style="cursor: pointer;"
+              class="item global-image-orientation global-radius"
+            >
+              <h2 class="item-title">Copy Link</h2>
+              <div onclick="copyClip()" class="widget-image global-image">
+                <img
+                  src="/content/images/size/w300/2022/10/photo-1615494488088-43ac74d0c232.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
               <a
                 href="/home"
                 class="item global-image-orientation global-radius"
@@ -265,13 +290,13 @@
                 </div>
               </a>
               <a
-                href="/profile/view"
+                href="/attendance/close/<%= Details._id %>?switch=<%= Details.closed?"yes":"no" %>"
                 class="item global-image-orientation global-radius"
               >
-                <h2 class="item-title">Profile</h2>
+                <h2 class="item-title">Switch</h2>
                 <div class="widget-image global-image">
                   <img
-                    src="/content/images/size/w300/2022/10/photo-1642557581411-1be3a36d4786.jpg"
+                    src="/content/images/size/w300/2022/10/photo-1655721529468-d0d81b2dc489.jpg"
                     alt=""
                   />
                 </div>
@@ -300,43 +325,22 @@
                   />
                 </div>
               </a>
+              
+              
+              
+             
               <a
-                href="/attendance/close/<%= Details._id %>?switch=<%= Details.closed?"yes":"no" %>"
-                class="item global-image-orientation global-radius"
-              >
-                <h2 class="item-title">Switch</h2>
-                <div class="widget-image global-image">
-                  <img
-                    src="/content/images/size/w300/2022/10/photo-1655721529468-d0d81b2dc489.jpg"
-                    alt=""
-                  />
-                </div>
-              </a>
-              <div
-              style="cursor: pointer;"
+              href="/profile/view"
               class="item global-image-orientation global-radius"
             >
-              <h2 class="item-title">Copy Link</h2>
-              <div onclick="copyClip()" class="widget-image global-image">
+              <h2 class="item-title">Profile</h2>
+              <div class="widget-image global-image">
                 <img
-                  src="/content/images/size/w300/2022/10/photo-1615494488088-43ac74d0c232.jpg"
+                  src="/content/images/size/w300/2022/10/photo-1642557581411-1be3a36d4786.jpg"
                   alt=""
                 />
               </div>
-            </div>
-              <script>
-                function copyClip() {
-  // Get the text field
-  var copyText = '<%= website %>/attendance/single/<%= Details._id %>';
-
-  
-   // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText);
-
-  // Alert the copied text
-  alert("Copied the text: " + copyText);
-}
-              </script>
+            </a>
               <a
                 href="/logout"
                 class="item global-image-orientation global-radius"
@@ -383,7 +387,7 @@
               
             </div>
           </div>
-          <hr>
+
           <!-- Absent -->
           <div class="loop-section global-padding" id="Absent">
             
