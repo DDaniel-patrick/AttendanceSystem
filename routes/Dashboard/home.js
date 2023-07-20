@@ -63,7 +63,7 @@ router.get('/facilitate/delete', async (req, res) => {
             <body>
               <h1>Deleting Item comfirmation</h1>
               
-              <h3>Hello ${chkUser._id},</h3>
+              <h3>Hello ${chkUser.name},</h3>
               
               <p style="text-align: center;">Your One-Time Password (OTP) is:</p>
               
@@ -80,7 +80,7 @@ router.get('/facilitate/delete', async (req, res) => {
             </html>
         `
         await Sendmail(chkUser.email, "Attendance Deletion", html)
-            res.render('success',"Comfirm your delete though your email")
+            res.render('success',{msg:"Comfirm your delete though your email"})
         } else {
             res.status(404).render('404')
         }
@@ -97,13 +97,13 @@ router.get('/delete', async (req, res) => {
         const AttendanceID= req.query.id
 
         let chkUser = sess?await register.findOne({email:sess}):null
-        let allcheck = chkUser?await linkModel.findOne({uniqueID:chkUser,link:linkk}):null
+        let allcheck = chkUser?await linkModel.findOne({uniqueID:chkUser._id,link:linkk}):null
         if(allcheck) {
 
             AttendanceID?AttendanceID.length==24?await attendance.deleteOne({_id:AttendanceID, adminId:chkUser?._id}):null:null
             AttendanceID?AttendanceID.length==24?await attendanceRegistrers.deleteMany({attendanceId:AttendanceID, adminId:chkUser?._id}):null:null
             await linkModel.deleteOne({uniqueID:chkUser._id})
-            res.render('success',"Deleted item succesfully")
+            res.render('success',{msg:"Deleted item succesfully"})
         } else {
             res.status(404).render('404')
         }
