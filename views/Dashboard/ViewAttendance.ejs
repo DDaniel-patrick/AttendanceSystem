@@ -228,7 +228,7 @@ alert("Copied the text: " + copyText);
       }
     </style>
   </head>
-  <body class="home-template">
+  <body onload="" class="home-template">
     <script>
       !(function () {
         "use strict";
@@ -256,15 +256,58 @@ alert("Copied the text: " + copyText);
                 <a href="#"><span><%= Details.name %> Attendance</span></a>
                 
               </h1>
-              <h3 class="hero-title"><%= `${Details.closed?"Closed":"Open"}` %> || Created at <%= `${Details.createdAt}`.split('G')[0] %> </h3>
+              <% let x =[] %>
 
+              <% AllAttendee?.map(i=>{ %>
+                  <% let v=JSON.stringify(i) %>
+                  <% let y=JSON.parse(v) %>
+                  
+                  <% delete y["_id"] %>
+                  <% delete y["__v"] %>
+
+                  <% x.push(JSON.stringify(y)) %>
+                <% }) %>
+                <% AllAbsenseAttendee?.map(i=>{ %>
+                  <% let v=JSON.stringify(i) %>
+                  <% let y=JSON.parse(v) %>
+                  
+                  <% delete y["_id"] %>
+                  <% delete y["__v"] %>
+
+                  <% x.push(JSON.stringify(y)) %>
+                <% }) %>
+              <h3 class="hero-title"><%= `${Details.closed?"Closed":"Open"}` %> || Created at <%= `${Details.createdAt}`.split('G')[0] %>|| <a style="cursor:pointer;font-weight: bolder;" id="downloadcsv" onclick="csvDownload([<%=x%>])">download</a> </h3>
+              <!-- downloadcsv -->
+              <script>
+                function csvDownload(attendance) {
+                  const ourData = attendance
+                  
+
+                const titleKeys = Object.keys(ourData[0])
+                let refinedData = []
+                refinedData.push(titleKeys)   
+                ourData.forEach(item => {
+                  refinedData.push(Object.values(item))  
+                })
+                let csvContent = ''
+
+                  refinedData.forEach(row => {
+                    csvContent += row.join(',') + '\n'
+                  })
+                  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' })
+                  const objUrl = URL.createObjectURL(blob)
+                  
+                  window.location.href=objUrl
+                }
+                
+              </script>
             </div>
           </div>
 
           <!-- nav  -->
           <div class="widget-section global-padding">
             <small class="global-subtitle">Where to go?</small>
-            <div style="overflow-x: scroll;" class="widget-wrap is-tags">
+            <div class="widget-wrap is-tags">
               <div
               style="cursor: pointer;"
               class="item global-image-orientation global-radius"
