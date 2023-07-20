@@ -77,10 +77,9 @@ router.post("/single/:id",async (req, res) => {
         let ID = req.params.id
 
         let collect= req.body
-        console.log(collect);
         let chkAttendance = ID?.length==24?await attendance.findOne({_id:ID, closed:false}) :null
         
-        chkAttendance?await attendanceRegistrers.create({name:collect?.name, attendanceId:ID, present:collect?.absent=="true"?false:true, Reason:collect?.reasonAbsent}):null
+        chkAttendance?await attendanceRegistrers.create({name:collect?.name,adminID:chkAttendance.adminId, attendanceId:ID, present:collect?.absent=="true"?false:true, Reason:collect?.reasonAbsent}):null
 
         chkAttendance?res.render('success',{msg:"Thanks for Registering"}):res.status(404).render('404')
     } catch (error) {

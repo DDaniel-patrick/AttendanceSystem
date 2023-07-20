@@ -24,6 +24,12 @@ const attendanceRegistrers = new Schema({
     maxlength:[54,"Reason too long"],
     default:"no text was filled"
   },
+  adminID:{
+    type: String,
+    required: [true, "AdmId is required"],
+    minlength:[24,"AdmId too short"],
+    maxlength:[24,"AdmId too long"],
+  }
 },{timestamps:true});
 
 module.exports = mongoose.model("AttendanceRegistrers", attendanceRegistrers);

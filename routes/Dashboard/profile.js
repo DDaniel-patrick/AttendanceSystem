@@ -7,6 +7,8 @@ const otpMod = require("./../../models/user/auth/otp");
 const cloudinary = require("cloudinary");
 const bcrypt = require("bcrypt");
 const mailer = require("nodemailer");
+const attendance = require("../../models/user/attendance/attendance");
+const attendanceRegistrers = require("../../models/user/attendance/attendanceRegistrers");
 
 const systemMail = mailer.createTransport({
   service: process.env.service,
@@ -298,6 +300,8 @@ router.post("/edit", async (req, res, next) => {
 router.get("/delete", async (req, res, next) => {
   const sess = req.session;
   if (sess.email && sess.password && sess.identifier == "user") {
+    await attendance.deleteMany({adminId:sess?._id})
+await attendanceRegistrers.deleteMany({adminID:sess?._id})
     const you = await registerMod.findOne({ email: sess.email });
     cloudinary.v2.uploader.destroy(you.picturePublicID).then((result) => {
       console.log(result);
@@ -305,6 +309,7 @@ router.get("/delete", async (req, res, next) => {
     registerMod
       .findByIdAndDelete(you._id)
       .then((result) => {
+        
         otpMod
           .findOneAndDelete({ email: sess.email })
           .then((result) => {
