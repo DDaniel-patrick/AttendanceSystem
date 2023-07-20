@@ -329,7 +329,7 @@
                               <a href="#"><%= `${(i?.createdAt)}`?.split('G')[0] %></a> <br> Closed:
                               <a href="#"><%= i.closed==true?`${i.updatedAt}`.split("G")[0]:"Open"
                                 %></a>
-                                <a href="/home/delete?id=<%= i._id %>">Delete</a>
+                                <a style="font-weight: bolder; text-decoration: underline;text-decoration-color: #f35e63;color: #f35e63;" href="/home/delete?id=<%= i._id %>">Delete</a>
                             </div>
                           </div>
                         </div>
