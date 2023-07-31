@@ -27,13 +27,13 @@ router.get("/", (req, res) => {
 
 router.post("/", async (req, res) => {
   const sess = req.session;
-  const fullName = req.body.name.trim();
-  const phoneNumber = req.body.phone.trim();
-  const dob = req.body.age.trim();
-  const gender = req.body.gender.trim();
-  const email = req.body.email.trim();
-  const password = req.body.password.trim();
-  const confirmPassword = req.body.confirmPassword.trim();
+  const fullName = req.body.name?.trim();
+  const phoneNumber = req.body.phone?.trim();
+  const dob = req.body.age?.trim();
+  const gender = req.body.gender?.trim();
+  const email = req.body.email?.trim();
+  const password = req.body.password?.trim();
+  const confirmPassword = req.body.confirmPassword?.trim();
   try {
     if (
       fullName != null &&
