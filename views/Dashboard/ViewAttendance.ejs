@@ -264,7 +264,8 @@ alert("Copied the text: " + copyText);
                   
                   <% delete y["_id"] %>
                   <% delete y["__v"] %>
-
+                  <% delete y["attendanceId"] %>
+                  <% delete y["adminID"] %>
                   <% x.push(JSON.stringify(y)) %>
                 <% }) %>
                 <% AllAbsenseAttendee?.map(i=>{ %>
@@ -273,7 +274,9 @@ alert("Copied the text: " + copyText);
                   
                   <% delete y["_id"] %>
                   <% delete y["__v"] %>
-
+                  <% delete y["attendanceId"] %>
+                  <% delete y["adminID"] %>
+                  
                   <% x.push(JSON.stringify(y)) %>
                 <% }) %>
               <h3 class="hero-title"><%= `${Details.closed?"Closed":"Open"}` %> || Created at <%= `${Details.createdAt}`.split('G')[0] %>|| <a style="cursor:pointer;font-weight: bolder;" id="downloadcsv" onclick="csvDownload([<%=x%>])">download</a> </h3>

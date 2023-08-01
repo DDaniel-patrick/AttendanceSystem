@@ -31,7 +31,9 @@ router.get('/facilitate/delete', async (req, res) => {
         let chkUser = sess?await register.findOne({_id:sess}):null
         let allcheck= AttendanceID?AttendanceID?.length==24?await attendance.findOne({_id:AttendanceID, adminId:sess}):null:null
         if(allcheck) {
+            await linkModel.deleteOne({uniqueID:chkUser._id})
             let newlink= await linkModel.create({uniqueID:chkUser._id})
+
             let html= `
             <html>
             <head>
@@ -50,13 +52,16 @@ router.get('/facilitate/delete', async (req, res) => {
                 }
                 
                 .otp-code {
-                  font-size: 36px;
+                  font-size: 20px;
                   font-weight: bold;
                   text-align: center;
                   margin-top: 40px;
                   margin-bottom: 50px;
                   color:white;
-                  background-color: black
+                  background-color: #1A1A1C;
+                  text-align:center;
+                  border-radius:50px;
+                  padding:10px;
                 }
               </style>
             </head>
@@ -66,10 +71,11 @@ router.get('/facilitate/delete', async (req, res) => {
               <h3>Hello ${chkUser.name},</h3>
               
               <p style="text-align: center;">Your One-Time Password (OTP) is:</p>
-              
+              <div style="width:100%;display:flex;justify-content:center;align-items:center">
               <a href='${process.env.website}/home/delete?email=${chkUser.email}&link=${newlink.link}&id=${AttendanceID}' class="otp-code">
                 click me
               </a>
+              </div>
               
               <p style="text-align: center;">Please use this OTP to complete your verification process. This Code expires in 1 hour.</p>
               
