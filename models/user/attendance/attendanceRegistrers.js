@@ -24,6 +24,11 @@ const attendanceRegistrers = new Schema({
     maxlength:[54,"Reason too long"],
     default:"no text was filled"
   },
+  Gender: {
+    type: String,
+    required:true,
+    enum:["Male","Female"]
+  },
   adminID:{
     type: String,
     required: [true, "AdmId is required"],

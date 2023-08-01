@@ -257,7 +257,13 @@
           <form method="post" action="/attendance/single/<%= Details._id %>">
             <h1 class="custom-title">Fill Attendance</h1>
             <p><%= msg %></p>
+            
             <input type="text" name="name" id="" placeholder="Attendance Name" required minlength="3" required maxlength="30">
+            <select name="Gender" id="">
+              <option disabled selected>Select a Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
             <div style="display: flex;flex-direction: row;align-items: center;"><input style="width:50px;" type="radio" name="absent" value="true"><label for="Absent">Absent</label></div>
             <input type="text" name="reasonAbsent" placeholder="Reason absent" id="">
     
